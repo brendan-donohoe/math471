@@ -8,4 +8,4 @@ README file for Tim Chavez, Brendan Donohoe Math 471
 
   - The code for this homework is located in Homework1/Code and is documented in the appendix of the report.
 
-  - To reproduce the results in the report [FORTHCOMING].
+  - See the report for details on how to compile and run the code.
