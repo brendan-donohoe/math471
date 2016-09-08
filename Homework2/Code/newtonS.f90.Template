@@ -7,19 +7,31 @@
 program newton
   
   implicit none
-  double precision :: f,fp,x,dx
+  double precision :: f,fp,x,dx,ecurr,eprev,r1,r2,m
   integer :: iter
   
   ! Here we try to find the solution to the
   ! f(x) = 0
   
+  if ('FFFF'.eq."x*x") then
+    m = 2.d0
+  else
+    m = 1.d0
+  endif
   x = -0.5d0
-  do iter = 1,10
+  ecurr = 1.d0
+  iter = 0
+  do while (ecurr > 10.d0**(-15))
+     iter = iter + 1
      f = ffun(x)
      fp = fpfun(x)
      dx = -f/fp
-     x = x + dx
-     write(*,'(A18,I2.2,2(E24.16))') ' FFFF ', iter, x, dx
+     x = x + (m*dx)
+     eprev = ecurr
+     ecurr = abs(x - (x - (m*dx)))
+     r1 = ecurr/eprev
+     r2 = r1/eprev
+     write(*,'(A18,I2.2,2(E24.16))') ' FFFF ', iter, x, dx, r1, r2
   end do
 
 contains
