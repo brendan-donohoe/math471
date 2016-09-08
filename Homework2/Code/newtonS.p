@@ -44,15 +44,8 @@ for( $m=0; $m < 3; $m = $m+1){
     # read one line at a time.
     while( $line = <FILE> )
     {
-	# Replace the the stings by using substitution
-	# s
-	$line =~ s/\s+/ , /g;
-	$line =  $line . "\n";
-	$line =~ s/ , $/ /;
-	# $line =~ s/ , / /;
-	$line =~ s/^ , / /;
-#"s/^ , / /;".
-	print $line; 
+        $line =~ s/\s+/ , /g;
+	print substr($line, 2, -2) . "\n";
     }
     close( FILE );
 }
