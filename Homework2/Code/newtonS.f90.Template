@@ -7,7 +7,7 @@
 program newton
   
   implicit none
-  double precision :: f,fp,x,dx,ecurr,eprev,r1,r2,m
+  double precision :: f,fp,x,xprev,dx,ecurr,eprev,r1,r2,m
   integer :: iter
   
   ! Here we try to find the solution to the
@@ -19,16 +19,21 @@ program newton
     m = 1.d0
   endif
   x = -0.5d0
+  f = ffun(x)
+  xprev = x + 1
   ecurr = 1.d0
   iter = 0
-  do while (ecurr > 10.d0**(-15))
+  do while (ecurr > 10.d0**(-15) .AND. ffun(x) /= 0)
      iter = iter + 1
      f = ffun(x)
      fp = fpfun(x)
      dx = -f/fp
+     xprev = x
      x = x + (m*dx)
      eprev = ecurr
-     ecurr = abs(x - (x - (m*dx)))
+     ecurr = abs(x - xprev)
+     !print *, "f: ", f, "fp: ", fp, "dx: ", dx
+     !print *, "ecurr:", ecurr, "eprev:", eprev
      r1 = ecurr/eprev
      r2 = r1/eprev
      write(*,'(A18,I2.2,2(E24.16))') ' FFFF ', iter, x, dx, r1, r2
