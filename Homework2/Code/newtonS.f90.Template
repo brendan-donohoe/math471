@@ -22,12 +22,12 @@ program newton
   else
     m = 1.d0
   endif
-  x = -0.5d0
+  x = GGGG
   f = ffun(x)
   xprev = x + 1
   ecurr = 1.d0
   iter = 0
-  do while (ecurr > 10.d0**(-15) .AND. ffun(x) /= 0)
+  do while (ecurr > 10.d0**(-15) .AND. (fst /= 'x*x' .OR. ffun(x) /= 0))
      iter = iter + 1
      f = ffun(x)
      fp = fpfun(x)

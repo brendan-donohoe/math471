@@ -23,10 +23,11 @@ for( $m=0; $m < 5; $m = $m+1){ #TODO: Change m to 3 when tests are finished.
     # read one line at a time.
     while( $line = <FILE> )
     {
-	# Replace the the stings by using substitution
+	# Replace the the strings by using substitution
 	# s
 	$line =~ s/\bFFFF\b/$array_f[$m]/g;
 	$line =~ s/\bFPFP\b/$array_fp[$m]/g;
+        $line =~ s/\bGGGG\b/$array_guess[$m]/g;
 	print OUTFILE $line;
         # You can always print to secreen to see what is happening.
         # print $line;
