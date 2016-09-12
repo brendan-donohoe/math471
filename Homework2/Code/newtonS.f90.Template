@@ -4,6 +4,7 @@
 !
 ! This is the template file used for the scripted version  
 !
+! exp(x)-4.d0*x+8.d0*log(2.d0)-4.d0
 program newton
   
   implicit none
@@ -12,8 +13,9 @@ program newton
   
   ! Here we try to find the solution to the
   ! f(x) = 0
+
   
-  if ('FFFF'.eq."x*x") then
+  if ('FFFF'.eq.'x*x' .OR. 'FFFF'.eq.'cos(x)-1.d0') then
     m = 2.d0
   else
     m = 1.d0
@@ -32,8 +34,6 @@ program newton
      x = x + (m*dx)
      eprev = ecurr
      ecurr = abs(x - xprev)
-     !print *, "f: ", f, "fp: ", fp, "dx: ", dx
-     !print *, "ecurr:", ecurr, "eprev:", eprev
      r1 = ecurr/eprev
      r2 = r1/eprev
      write(*,'(A18,I2.2,2(E24.16))') ' FFFF ', iter, x, dx, r1, r2

@@ -11,11 +11,11 @@ $outFile="./newtonS.f90";
 
 # Stuff to converge over
 
-@array_f = ("x", "x*x", "sin(x)+cos(x*x)");
-@array_fp = ("1.d0", "2.d0*x", "cos(x)-2.d0*x*sin(x*x)" );
-@array_guess = ("1.d0", "1.d0", "1.d0" );
+@array_f = ("x", "x*x", "sin(x)+cos(x*x)", "cos(x)-1.d0", "exp(x)-4.d0*x+8.d0*log(2.d0)-4.d0");
+@array_fp = ("1.d0", "2.d0*x", "cos(x)-2.d0*x*sin(x*x)", "-sin(x)", "exp(x)-4.d0");
+@array_guess = ("1.d0", "1.d0", "1.d0", "1.d0", "1.d0");
 
-for( $m=0; $m < 3; $m = $m+1){
+for( $m=0; $m < 4; $m = $m+1){ #TODO: Change m to 3 when tests are finished.
     # Open the Template file and the output file. 
     open(FILE,"$cmdFile") || die "cannot open file $cmdFile!" ;
     open(OUTFILE,"> $outFile") || die "cannot open file!" ;
@@ -25,8 +25,8 @@ for( $m=0; $m < 3; $m = $m+1){
     {
 	# Replace the the stings by using substitution
 	# s
-	$line =~ s/\bFFFF\b/$array_f[$m]/;
-	$line =~ s/\bFPFP\b/$array_fp[$m]/;
+	$line =~ s/\bFFFF\b/$array_f[$m]/g;
+	$line =~ s/\bFPFP\b/$array_fp[$m]/g;
 	print OUTFILE $line;
         # You can always print to secreen to see what is happening.
         # print $line;
