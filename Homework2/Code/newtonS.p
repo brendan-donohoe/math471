@@ -15,7 +15,7 @@ $outFile="./newtonS.f90";
 @array_fp = ("1.d0", "2.d0*x", "cos(x)-2.d0*x*sin(x*x)", "-sin(x)", "exp(x)-4.d0");
 @array_guess = ("1.d0", "1.d0", "1.d0", "1.d0", "1.d0");
 
-for( $m=0; $m < 4; $m = $m+1){ #TODO: Change m to 3 when tests are finished.
+for( $m=0; $m < 5; $m = $m+1){ #TODO: Change m to 3 when tests are finished.
     # Open the Template file and the output file. 
     open(FILE,"$cmdFile") || die "cannot open file $cmdFile!" ;
     open(OUTFILE,"> $outFile") || die "cannot open file!" ;
