@@ -21,6 +21,7 @@ e2 = abs(ts2 - best2);
 figure;
 loglog(ns, e1, 'r', ns, e2, 'b');
 grid on;
+legend('e^cos(pi*x)','e^cos(pi^2*x)');
 xlabel('n', 'FontSize', 12);
 ylabel('ERROR', 'FontSize', 12);
 saveas(gcf,'traperrgraph','epsc');
