@@ -18,10 +18,10 @@ best2 = ts2(length(ts2));
 e1 = abs(ts1 - best1);
 e2 = abs(ts2 - best2);
 
-figure;
+figure('position', [0, 0, 800, 800]);
 loglog(ns, e1, 'r', ns, e2, 'b');
 grid on;
-legend('e^cos(pi*x)','e^cos(pi^2*x)');
+legend('e^{cos(\pi*x)}','e^{cos(\pi^2*x)}');
 xlabel('n', 'FontSize', 12);
 ylabel('ERROR', 'FontSize', 12);
-saveas(gcf,'traperrgraph','epsc');
+saveas(gcf,'traperrgraph.png');

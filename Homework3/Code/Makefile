@@ -11,7 +11,6 @@ graphtrap: trap.txt
 	   nohup matlab -nodisplay -nosplash -nodesktop < trapgraph.m
 
 clean:
-	rm trap.o
-	rm trap.txt
-	rm trap.x
-	rm nohup.out
+	-rm *.o
+	-rm *.x
+	-rm *.out
