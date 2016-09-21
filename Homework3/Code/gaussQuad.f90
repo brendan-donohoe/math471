@@ -12,6 +12,7 @@ program gaussQuad
             f = exp(cos(x*(pi**dble(s))))
             Integral_value = sum(f*w)
             deallocate(x,f,w)
+            print *, s, n, Integral_value
         end do
     end do
 	
