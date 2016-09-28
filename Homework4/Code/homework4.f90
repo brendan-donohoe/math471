@@ -9,6 +9,8 @@ program hwk4
   real(kind = 8), dimension(:,:), allocatable :: xc,yc
   real(kind = 8), dimension(:,:), allocatable :: xr,xs
   real(kind = 8), dimension(:,:), allocatable :: yr,ys
+  real(kind = 8), dimension(:,:), allocatable :: rx,ry
+  real(kind = 8), dimension(:,:), allocatable :: sx,sy
 
   nr = 30
   ns = 60
@@ -17,6 +19,7 @@ program hwk4
   allocate(r(0:nr),s(0:ns),u(0:nr,0:ns),ur(0:nr,0:ns),us(0:nr,0:ns))
   allocate(xc(0:nr,0:ns),yc(0:nr,0:ns))
   allocate(xr(0:nr,0:ns),xs(0:nr,0:ns),yr(0:nr,0:ns),ys(0:nr,0:ns))
+  allocate(rx(0:nr,0:ns),ry(0:nr,0:ns),sx(0:nr,0:ns),sy(0:nr,0:ns))
   
   hr = 2.d0/dble(nr)
   hs = 2.d0/dble(ns)
@@ -59,6 +62,14 @@ program hwk4
   !  end do
   !end do
 
+  do j = 0,ns
+    do i = 0,nr
+        rx(i,j) = ys(i,j)/(xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j))
+        ry(i,j) = -xs(i,j)/(xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j))
+        sx(i,j) = -yr(i,j)/(xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j))
+        sy(i,j) = xr(i,j)/(xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j))
+    end do
+  end do
   ! 
   do j = 0,ns
      do i = 0,nr
