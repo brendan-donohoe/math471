@@ -7,6 +7,8 @@ program hwk4
   real(kind = 8), dimension(:,:), allocatable :: u,ur,us
   
   real(kind = 8), dimension(:,:), allocatable :: xc,yc
+  real(kind = 8), dimension(:,:), allocatable :: xr,xs
+  real(kind = 8), dimension(:,:), allocatable :: yr,ys
 
   nr = 30
   ns = 60
@@ -14,6 +16,7 @@ program hwk4
   ! Allocate memory for the various arrays
   allocate(r(0:nr),s(0:ns),u(0:nr,0:ns),ur(0:nr,0:ns),us(0:nr,0:ns))
   allocate(xc(0:nr,0:ns),yc(0:nr,0:ns))
+  allocate(xr(0:nr,0:ns),xs(0:nr,0:ns),yr(0:nr,0:ns),ys(0:nr,0:ns))
   
   hr = 2.d0/dble(nr)
   hs = 2.d0/dble(ns)
@@ -32,6 +35,30 @@ program hwk4
   end do
   call  printdble2d(xc,nr,ns,'x.txt')
   call  printdble2d(yc,nr,ns,'y.txt')
+
+  ! Differentiate x and y with respect to r
+  do i = 0,ns
+    call differentiate(xc(0:nr,i),xr(0:nr,i),hr,nr)
+    call differentiate(yc(0:nr,i),yr(0:nr,i),hr,nr)
+  end do
+  ! Differentiate x and y with respect to s
+  do i = 0,nr
+    call differentiate(xc(i,0:ns),xs(i,0:ns),hs,ns)
+    call differentiate(yc(i,0:ns),ys(i,0:ns),hs,ns)
+  end do
+
+  !do j = 0,ns
+  !  do i = 0,nr
+  !     print *, "r=", r(i), "s=", s(j)
+  !     print *, "x(r,s)=", xc(i,j)
+  !     print *, "dx/dr(r,s)=", xr(i,j)
+  !     print *, "dx/ds(r,s)=", xs(i,j)
+  !     print *, "y(r,s)=", yc(i,j)
+  !     print *, "dy/dr(r,s)=", yr(i,j)
+  !     print *, "dy/ds(r,s)=", ys(i,j)
+  !  end do
+  !end do
+
   ! 
   do j = 0,ns
      do i = 0,nr
