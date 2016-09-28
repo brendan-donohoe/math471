@@ -62,7 +62,8 @@ program hwk4
   ! 
   do j = 0,ns
      do i = 0,nr
-        u(i,j) = sin(r(i))*cos(s(j))
+        !u(i,j) = sin(r(i))*cos(s(j))
+        u(i,j) = sin(xc(i,j))*cos(yc(i,j))
      end do
   end do
   ! Differentiate in the r-direction
