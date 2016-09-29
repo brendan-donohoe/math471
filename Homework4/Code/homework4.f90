@@ -25,6 +25,7 @@ program hwk4
   allocate(xc(0:nr,0:ns),yc(0:nr,0:ns))
   allocate(xr(0:nr,0:ns),xs(0:nr,0:ns),yr(0:nr,0:ns),ys(0:nr,0:ns))
   allocate(rx(0:nr,0:ns),ry(0:nr,0:ns),sx(0:nr,0:ns),sy(0:nr,0:ns))
+  allocate(ux(0:nr,0:ns),uy(0:nr,0:ns))
   
   hr = 2.d0/dble(nr)
   hs = 2.d0/dble(ns)
