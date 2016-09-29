@@ -1,16 +1,21 @@
 program hwk4
   use xycoord ! use the module xycoord to set the mapping 
   implicit none
+
   integer :: nr,ns,i,j
+
   real(kind = 8) :: hr,hs
+  real(kind = 8) :: det
+
   real(kind = 8), dimension(:), allocatable :: r,s
+
   real(kind = 8), dimension(:,:), allocatable :: u,ur,us
-  
   real(kind = 8), dimension(:,:), allocatable :: xc,yc
   real(kind = 8), dimension(:,:), allocatable :: xr,xs
   real(kind = 8), dimension(:,:), allocatable :: yr,ys
   real(kind = 8), dimension(:,:), allocatable :: rx,ry
   real(kind = 8), dimension(:,:), allocatable :: sx,sy
+  real(kind = 8), dimension(:,:), allocatable :: ux,uy
 
   nr = 30
   ns = 60
@@ -50,12 +55,14 @@ program hwk4
     call differentiate(yc(i,0:ns),ys(i,0:ns),hs,ns)
   end do
 
+  ! Calculate the metric rx, ry, sx, sy
   do j = 0,ns
     do i = 0,nr
-        rx(i,j) = ys(i,j)/(xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j))
-        ry(i,j) = -xs(i,j)/(xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j))
-        sx(i,j) = -yr(i,j)/(xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j))
-        sy(i,j) = xr(i,j)/(xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j))
+        det = xr(i,j)*ys(i,j) - yr(i,j)*xs(i,j)
+        rx(i,j) = ys(i,j)/det
+        ry(i,j) = -xs(i,j)/det
+        sx(i,j) = -yr(i,j)/det
+        sy(i,j) = xr(i,j)/det
     end do
   end do
 
@@ -72,6 +79,14 @@ program hwk4
   ! Differentiate in the s-direction
   do i = 0,nr
      call differentiate(u(i,0:ns),us(i,0:ns),hs,ns)
+  end do
+
+  ! Calculate the approximate derivative of u with respect to x and y.
+  do j = 0,ns
+    do i = 0,nr
+      ux(i,j) = rx(i,j)*ur(i,j) + sx(i,j)*us(i,j)
+      uy(i,j) = ry(i,j)*ur(i,j) + sy(i,j)*us(i,j)
+    end do
   end do
 
 end program hwk4
