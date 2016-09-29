@@ -5,7 +5,8 @@ program hwk4
   integer :: nr,ns,i,j
 
   real(kind = 8) :: hr,hs
-  real(kind = 8) :: det
+  real(kind = 8) :: det, Iresult
+  real(kind = 8) :: val
 
   real(kind = 8), dimension(:), allocatable :: r,s
 
@@ -16,6 +17,7 @@ program hwk4
   real(kind = 8), dimension(:,:), allocatable :: rx,ry
   real(kind = 8), dimension(:,:), allocatable :: sx,sy
   real(kind = 8), dimension(:,:), allocatable :: ux,uy
+  real(kind = 8), dimension(:,:), allocatable :: jac
 
   nr = 30
   ns = 60
@@ -26,6 +28,7 @@ program hwk4
   allocate(xr(0:nr,0:ns),xs(0:nr,0:ns),yr(0:nr,0:ns),ys(0:nr,0:ns))
   allocate(rx(0:nr,0:ns),ry(0:nr,0:ns),sx(0:nr,0:ns),sy(0:nr,0:ns))
   allocate(ux(0:nr,0:ns),uy(0:nr,0:ns))
+  allocate(jac(0:nr,0:ns))
   
   hr = 2.d0/dble(nr)
   hs = 2.d0/dble(ns)
@@ -88,6 +91,20 @@ program hwk4
       ux(i,j) = rx(i,j)*ur(i,j) + sx(i,j)*us(i,j)
       uy(i,j) = ry(i,j)*ur(i,j) + sy(i,j)*us(i,j)
     end do
+  end do
+
+  ! Calculate Jacobian (yay!)
+  do j = 0, ns
+    do i = 0, nr
+      jac(i,j) = xr(i,j)*ys(i,j) - xs(i,j)*yr(i,j)
+    end do
+  end do
+
+  ! Integrate (actually estimate using trapezoidal rule)!
+  Iresult = 0.d0
+  do j = 0, nr
+    call trap(1.d0, -1.d0, u(j,0:ns), jac(j,0:ns), ns, val)
+    Iresult = Iresult + val*hr
   end do
 
 end program hwk4

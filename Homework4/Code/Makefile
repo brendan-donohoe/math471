@@ -13,7 +13,7 @@ F90FLAGS = -O3 -g -fbacktrace -fbounds-check
 EX = ./homework4.x
 
 
-OBJECTS = homework4.o differentiate.o printdble.o xycoord.o
+OBJECTS = homework4.o differentiate.o printdble.o xycoord.o trap.o
 MODULES = xycoord.mod
 
 .PHONY: clean
