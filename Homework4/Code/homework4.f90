@@ -47,25 +47,12 @@ program hwk4
     call differentiate(yc(i,0:ns),ys(i,0:ns),hs,ns)
   end do
 
-  !do j = 0,ns
-  !  do i = 0,nr
-  !     print *, "r=", r(i), "s=", s(j)
-  !     print *, "x(r,s)=", xc(i,j)
-  !     print *, "dx/dr(r,s)=", xr(i,j)
-  !     print *, "dx/ds(r,s)=", xs(i,j)
-  !     print *, "y(r,s)=", yc(i,j)
-  !     print *, "dy/dr(r,s)=", yr(i,j)
-  !     print *, "dy/ds(r,s)=", ys(i,j)
-  !  end do
-  !end do
-
-  ! 
   do j = 0,ns
      do i = 0,nr
-        !u(i,j) = sin(r(i))*cos(s(j))
         u(i,j) = sin(xc(i,j))*cos(yc(i,j))
      end do
   end do
+
   ! Differentiate in the r-direction
   do i = 0,ns
      call differentiate(u(0:nr,i),ur(0:nr,i),hr,nr)
