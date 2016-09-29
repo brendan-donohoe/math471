@@ -6,9 +6,9 @@ contains
   real(kind=8) function x_coord(r,s)
     implicit none
     real(kind=8) r,s
-    ! x_coord = (6.5d0+r+5.d0*s)*cos(4.d0*s) DO NOT TOUCH
+    ! x_coord = (6.5d0+r+5.d0*s)*cos(4.d0*s)
     ! x_coord = (2.d0+r+0.2*sin(5.d0*pi*s))*cos(0.5d0*pi*s)
-    x_coord = r + s
+    x_coord = r*cos((3.14159265358979323 / 2) * s) Circle with radius 1.
   end function x_coord
 
   real(kind=8) function y_coord(r,s)
@@ -16,7 +16,7 @@ contains
     real(kind=8) r,s
     ! y_coord = (6.5d0+r+5.d0*s)*sin(4.d0*s)
     ! y_coord = (2.d0+r+0.2*sin(5.d0*pi*s))*sin(0.5d0*pi*s)
-    y_coord = exp(r*s)
+    y_coord = r*sin((3.14159265358979323 / 2) * s) Circle with radius 1.
   end function y_coord
     
 end module xycoord
