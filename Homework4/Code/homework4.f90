@@ -4,7 +4,7 @@ program hwk4
 
   integer :: nr,ns,i,j
 
-  real(kind = 8) :: hr,hs,det,integral,val
+  real(kind = 8) :: hr,hs,det,integral,val,error
   real(kind = 8), dimension(:,:), allocatable :: jacproduct
 
   real(kind = 8), dimension(:), allocatable :: r,s
@@ -16,6 +16,7 @@ program hwk4
   real(kind = 8), dimension(:,:), allocatable :: sx,sy
   real(kind = 8), dimension(:,:), allocatable :: ux,uy
   real(kind = 8), dimension(:,:), allocatable :: jac
+  real(kind = 8), dimension(:,:), allocatable :: uxEx, uyEx
 
   nr = 30
   ns = 60
@@ -27,7 +28,7 @@ program hwk4
   allocate(rx(0:nr,0:ns),ry(0:nr,0:ns),sx(0:nr,0:ns),sy(0:nr,0:ns))
   allocate(ux(0:nr,0:ns),uy(0:nr,0:ns))
   allocate(jac(0:nr,0:ns))
-
+  allocate(uxEx(0:nr,0:ns),uyEx(0:nr,0:ns))
   allocate(jacproduct(0:nr,0:ns))
   
   hr = 2.d0/dble(nr)
@@ -116,4 +117,6 @@ program hwk4
   integral = integral * hr
   write(*,*) integral
 
+  call curviError(ux, uy, uxEx, uyEx, jac, nr, ns, error)
+  write(*,*) "error = ", error
 end program hwk4
