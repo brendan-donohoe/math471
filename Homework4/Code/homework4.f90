@@ -4,12 +4,10 @@ program hwk4
 
   integer :: nr,ns,i,j
 
-  real(kind = 8) :: hr,hs
-  real(kind = 8) :: det, Iresult
-  real(kind = 8) :: val
+  real(kind = 8) :: hr,hs,det,integral,val
+  real(kind = 8), dimension(:,:), allocatable :: jacproduct
 
   real(kind = 8), dimension(:), allocatable :: r,s
-
   real(kind = 8), dimension(:,:), allocatable :: u,ur,us
   real(kind = 8), dimension(:,:), allocatable :: xc,yc
   real(kind = 8), dimension(:,:), allocatable :: xr,xs
@@ -29,6 +27,8 @@ program hwk4
   allocate(rx(0:nr,0:ns),ry(0:nr,0:ns),sx(0:nr,0:ns),sy(0:nr,0:ns))
   allocate(ux(0:nr,0:ns),uy(0:nr,0:ns))
   allocate(jac(0:nr,0:ns))
+
+  allocate(jacproduct(0:nr,0:ns))
   
   hr = 2.d0/dble(nr)
   hs = 2.d0/dble(ns)
@@ -72,7 +72,7 @@ program hwk4
 
   do j = 0,ns
      do i = 0,nr
-        u(i,j) = sin(xc(i,j))*cos(yc(i,j))
+        u(i,j) = 1!sin(xc(i,j))*cos(yc(i,j))
      end do
   end do
 
@@ -100,11 +100,20 @@ program hwk4
     end do
   end do
 
-  ! Integrate (actually estimate using trapezoidal rule)!
-  Iresult = 0.d0
-  do j = 0, nr
-    call trap(1.d0, -1.d0, u(j,0:ns), jac(j,0:ns), ns, val)
-    Iresult = Iresult + val*hr
+  ! Store the elements of the Jacobian multiplied by the elements of u.
+  do j = 0,ns
+    do i = 0,nr
+      jacproduct(i,j) = u(i,j)*jac(i,j)
+    end do
   end do
 
+  ! Integrate (actually estimate using trapezoidal rule)!
+  integral = 0.d0
+  do i = 0, nr
+    call trap(1.d0, -1.d0, jacproduct(i,0:ns), ns, val)
+    print *, "for r=", r(i), ": integral of jacproduct =", val
+    integral = integral + val
+  end do
+  integral = integral * hr
+  print *, "integral approximation =", integral
 end program hwk4
