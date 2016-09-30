@@ -111,9 +111,9 @@ program hwk4
   integral = 0.d0
   do i = 0, nr
     call trap(1.d0, -1.d0, jacproduct(i,0:ns), ns, val)
-    print *, "for r=", r(i), ": integral of jacproduct =", val
     integral = integral + val
   end do
   integral = integral * hr
-  print *, "integral approximation =", integral
+  write(*,*) integral
+
 end program hwk4
