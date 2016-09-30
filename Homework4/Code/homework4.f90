@@ -48,6 +48,11 @@ program hwk4
   call  printdble2d(xc,nr,ns,'x.txt')
   call  printdble2d(yc,nr,ns,'y.txt')
 
+  print *, "nr=", nr
+  print *, "ns=", ns
+  print *, "hr=", hr
+  print *, "hs=", hs
+
   ! Differentiate x and y with respect to r
   do i = 0,ns
     call differentiate(xc(0:nr,i),xr(0:nr,i),hr,nr)
