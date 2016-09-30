@@ -103,8 +103,9 @@ program hwk4
   ! Integrate (actually estimate using trapezoidal rule)!
   Iresult = 0.d0
   do j = 0, nr
-    call trap(1.d0, -1.d0, u(j,0:ns), jac(j,0:ns), ns, val)
+    call trap(ns, 0.d0, u(j,0:ns), jac(j,0:ns), ns, val)
     Iresult = Iresult + val*hr
   end do
-
+  write (*,*) val
+  
 end program hwk4
