@@ -1,4 +1,4 @@
-fid = ('errorvals.txt', 'r');
+fid = fopen('errorvals.txt', 'r');
 formatSpec = '%f %f';
 sizeData = [2 Inf];
 data = fscanf(fid, formatSpec, sizeData);
