@@ -1,3 +1,9 @@
+! differentiate(u,ux,h,n)
+! u: (Input) Array containing the values of the function in terms of the variable to be differentiated.
+! ux: (Output) Array containing the derivative of the function.
+! h: (Input) Step size.
+! n: (Input) Number of steps.
+
 subroutine differentiate(u,ux,h,n)
   implicit none
   integer, intent(in) :: n
