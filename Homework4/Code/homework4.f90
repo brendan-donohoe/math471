@@ -59,12 +59,12 @@ program hwk4
      do i = 0,nr
       ! FUNCTION 0:
       u(i,j) = 1.d0
-  
+
       ! FUNCTION 1:
       ! u(i,j) = sin(xc(i,j))*cos(yc(i,j))
 
       ! FUNCTION 2:
-      u(i,j) = exp(xc(i,j)+yc(i,j))
+      ! u(i,j) = exp(xc(i,j)+yc(i,j))
 
       ! FUNCTION 3:
       ! u(i,j) = xc(i,j)**2.d0 + yc(i,j)**2.d0
