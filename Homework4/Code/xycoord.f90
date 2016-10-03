@@ -16,7 +16,7 @@ contains
     ! x_coord = r + 0.1*s
 
     ! FUNCTION 2:
-    ! x_coord = (2.d0+r+0.1*sin(5.d0*pi*s))*cos(0.5d0*pi*s)
+    x_coord = (2.d0+r+0.1*sin(5.d0*pi*s))*cos(0.5d0*pi*s)
 
     ! FUNCTION 3:
     ! x_coord = r
@@ -35,7 +35,7 @@ contains
     ! y_coord = s
 
     ! FUNCTION 2:
-    ! y_coord = (2.d0+r+0.1*sin(5.d0*pi*s))*sin(0.5d0*pi*s)
+    y_coord = (2.d0+r+0.1*sin(5.d0*pi*s))*sin(0.5d0*pi*s)
 
     ! FUNCTION 3:
     ! y_coord = s + s*r**2
