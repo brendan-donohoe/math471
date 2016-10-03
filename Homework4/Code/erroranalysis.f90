@@ -80,14 +80,14 @@ subroutine computeerror(nr, ns)
   do j = 0,ns
     do i = 0,nr
       ! FUNCTION 0:
-      ! u(i,j) = 1.d0
-      ! uxex(i,j) = 0.d0
-      ! uyex(i,j) = 0.d0
+      u(i,j) = 1.d0
+      uxex(i,j) = 0.d0
+      uyex(i,j) = 0.d0
   
       ! FUNCTION 1:
-      u(i,j) = sin(xc(i,j))*cos(yc(i,j))
-      uxex(i,j) = cos(xc(i,j))*cos(yc(i,j))
-      uyex(i,j) = -sin(xc(i,j))*sin(yc(i,j))
+      ! u(i,j) = sin(xc(i,j))*cos(yc(i,j))
+      ! uxex(i,j) = cos(xc(i,j))*cos(yc(i,j))
+      ! uyex(i,j) = -sin(xc(i,j))*sin(yc(i,j))
 
       ! FUNCTION 2:
       ! u(i,j) = exp(xc(i,j)+yc(i,j))
