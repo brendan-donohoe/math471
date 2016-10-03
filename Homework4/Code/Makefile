@@ -30,10 +30,6 @@ graph_it: $(EX)
 run_it: $(EX)
 	$(EX)    
 
-run_error: erroranalysis.o differentiate.o xycoord.o trap.o curvierror.o
-	   gfortran erroranalysis.o differentiate.o xycoord.o trap.o curvierror.o -o ./erroranalysis.x
-	   ./erroranalysis.x > 
-
 ./erroranalysis.x: erroranalysis.o differentiate.o xycoord.o trap.o curvierror.o
 	           gfortran erroranalysis.o differentiate.o xycoord.o trap.o curvierror.o -o ./erroranalysis.x
 
