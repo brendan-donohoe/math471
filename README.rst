@@ -33,3 +33,15 @@ README file for Tim Chavez, Brendan Donohoe Math 471
   - To run our Gauss Quadrature code and graph the results, use the commands in the makefile:
   $ make clean
   $ make graphgauss
+
+4. Homework 4
+
+  - The report for Homework 4 is in the directory Homework4/Report and is named homework4.pdf.
+
+  - All of the code for Homework 4 is in Homework4/Code.
+
+  - To run the code and graph a function on curvilinear coordinates, use the commands:
+  $ make clean
+  $ make graph_it
+
+  - To run the code and plot the error of 

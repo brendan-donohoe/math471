@@ -11,10 +11,10 @@ contains
     ! x_coord = ((r+1.d0)/2.d0)*cos(pi*(s+1.d0))
 
     ! FUNCTION 1:
-    x_coord = r + 0.1*s
+    ! x_coord = r + 0.1*s
 
     ! FUNCTION 2:
-    ! x_coord = (2.d0+r+0.1*sin(5.d0*pi*s))*cos(0.5d0*pi*s)
+    x_coord = (2.d0+r+0.1*sin(5.d0*pi*s))*cos(0.5d0*pi*s)
 
     ! FUNCTION 3:
     ! x_coord = r
@@ -28,10 +28,10 @@ contains
     ! y_coord = ((r+1.d0)/2.d0)*sin(pi*(s+1.d0))
 
     ! FUNCTION 1:
-    y_coord = s
+    ! y_coord = s
 
     ! FUNCTION 2:
-    ! y_coord = (2.d0+r+0.1*sin(5.d0*pi*s))*sin(0.5d0*pi*s)
+    y_coord = (2.d0+r+0.1*sin(5.d0*pi*s))*sin(0.5d0*pi*s)
 
     ! FUNCTION 3:
     ! y_coord = s + s*r**2
