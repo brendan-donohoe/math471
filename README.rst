@@ -44,4 +44,11 @@ README file for Tim Chavez, Brendan Donohoe Math 471
   $ make clean
   $ make graph_it
 
-  - To run the code and plot the error of 
+  - To run the code and plot the error, use the commands:
+  $ make clean
+  $ make graph_error
+
+  - To make changes to the functions being graphed and analyzed for error, edit:
+  The FUNCTIONS area in homework4.f90 (lines 60-70)
+  The FUNCTIONS area in erroranalysis.f90 (lines 82-100)
+  The FUNCTIONS areas in xycoord.f90 (lines 10-20 for x_coord and lines 27-37 for y_coord)
