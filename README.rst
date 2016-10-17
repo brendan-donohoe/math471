@@ -52,3 +52,11 @@ README file for Tim Chavez, Brendan Donohoe Math 471
   The FUNCTIONS area in homework4.f90 (lines 60-70)
   The FUNCTIONS area in erroranalysis.f90 (lines 82-100)
   The FUNCTIONS areas in xycoord.f90 (lines 10-20 for x_coord and lines 27-37 for y_coord)
+
+5. Homework 5
+
+  - The report for Homework 5 is in the directory Homework5/Report and is named homework5.pdf. The movies discussed in the report are contained in the AngryBirdsMovies.zip folder.
+
+  - All of the code for Homework 5 is in Homework5/Code and is split into 4 seperate directories for the different parts of the homework.
+
+  - To run one part of the code, run setup.m in the desired folder in the Code folder. Then, play the AVI movie file that is generated called setup1.avi.
