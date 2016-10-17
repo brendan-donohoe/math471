@@ -1,4 +1,4 @@
-function positions = getbirdpositions(xmin, xmax, ymin, ymax, nbirds, cx, cy, gamma1, gamma2, kappa, ro, lambda, delta, h, endt)
+function positions = getbirdpositions(xmin, xmax, ymin, ymax, nbirds, cx, cy, gamma1, gamma2, othergamma2, kappa, ro, lambda, delta, h, endt)
   numiterations = round(endt / h);
   positions = zeros(nbirds, 2, numiterations);
 
@@ -23,10 +23,12 @@ function positions = getbirdpositions(xmin, xmax, ymin, ymax, nbirds, cx, cy, ga
     birdnext(1, 1) = rungekuttanext(@(t, y) leadereqn(t, y, cx, gamma1), t, birdcur(1, 1), h);
     birdnext(1, 2) = rungekuttanext(@(t, y) leadereqn(t, y, cy, gamma1), t, birdcur(1, 2), h);
     
+    birdnext(2, 1) = rungekuttanext(@(t, y) leadereqn(t, y, cx, gamma1), t, birdcur(2, 1), h);
+    birdnext(2, 2) = rungekuttanext(@(t, y) leadereqn(t, y, cy, gamma1), t, birdcur(2, 2), h);
     % Find the x and y coordinates at time t + h for the rest of the flock
     % as well.
     
-    for k = 2:nbirds
+    for k = 3:nbirds
       % First, for the current bird, find its lambda closest neighbors.
       nlist = birdcur(1:nbirds,:);
       nlist(k,:) = [];
@@ -34,8 +36,8 @@ function positions = getbirdpositions(xmin, xmax, ymin, ymax, nbirds, cx, cy, ga
     
       % Using Runge Kutta with the above parameters, approximate the bird's
       % next position.
-      birdnext(k, 1) = rungekuttanext(@(t, y) birdeqn(t, y, gamma2, birdcur(1, 1), kappa, centerx, ro, delta, nlist(nindices, 1)), t, birdcur(k, 1), h);
-      birdnext(k, 2) = rungekuttanext(@(t, y) birdeqn(t, y, gamma2, birdcur(1, 2), kappa, centery, ro, delta, nlist(nindices, 2)), t, birdcur(k, 2), h);
+      birdnext(k, 1) = rungekuttanext(@(t, y) birdeqn(t, y, gamma2, othergamma2, birdcur(1, 1), birdcur(2,1), kappa, centerx, ro, delta, nlist(nindices, 1)), t, birdcur(k, 1), h);
+      birdnext(k, 2) = rungekuttanext(@(t, y) birdeqn(t, y, gamma2, othergamma2, birdcur(1, 2), birdcur(2,2), kappa, centery, ro, delta, nlist(nindices, 2)), t, birdcur(k, 2), h);
     end
     
     % Store the information of birdnext in the positions array and
