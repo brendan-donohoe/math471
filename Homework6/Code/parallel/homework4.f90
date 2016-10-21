@@ -5,7 +5,7 @@ program hwk4
 
   integer :: nr,ns,i,j
 
-  real(kind = 8) :: hr,hs,det,integral,val,error
+  real(kind = 8) :: hr,hs,det,integral,val,error,tstart,tend
   real(kind = 8), dimension(:,:), allocatable :: jacproduct
 
   real(kind = 8), dimension(:), allocatable :: r,s
@@ -17,8 +17,8 @@ program hwk4
 
   !$ call OMP_set_num_threads(8)
 
-  nr = 400
-  ns = 400
+  nr = 800
+  ns = 800
   
   ! Allocate memory for the various arrays
   allocate(r(0:nr),s(0:ns),u(0:nr,0:ns))
@@ -27,6 +27,8 @@ program hwk4
   allocate(jac(0:nr,0:ns))
   allocate(jacproduct(0:nr,0:ns))
   
+  tstart = omp_get_wtime()
+
   hr = 2.d0/dble(nr)
   hs = 2.d0/dble(ns)
   !$OMP PARALLEL DO PRIVATE(i)
@@ -91,5 +93,9 @@ program hwk4
     integral = integral + val
   end do
   integral = integral*hr
+
+  tend = omp_get_wtime()
+  
   write(*,*) "integral value=", integral
+  write(*,*) "time taken=", tend - tstart
 end program hwk4

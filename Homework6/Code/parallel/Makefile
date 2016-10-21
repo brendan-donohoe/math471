@@ -7,9 +7,9 @@
 
 FC = gfortran
 LD = gfortran
-LDFLAGS = 
-FFLAGS = -O3
-F90FLAGS = -O3 -g -fbacktrace -fbounds-check
+LDFLAGS = -fopenmp
+FFLAGS =
+F90FLAGS = -fopenmp
 EX = ./homework4.x
 
 
@@ -20,7 +20,7 @@ MODULES = xycoord.mod
 
 # Compile, run, process and open.
 $(EX): $(MODULES) $(OBJECTS) 
-	$(LD) $(OBJECTS) -o $(EX)
+	$(LD) $(LDFLAGS) $(OBJECTS) -o $(EX)
 
 graph_it: $(EX)
 	$(EX) > out.txt
