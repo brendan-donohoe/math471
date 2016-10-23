@@ -65,7 +65,8 @@ program hwk4
   !$OMP PARALLEL DO PRIVATE(j,i)
   do j = 0,ns
      do i = 0,nr
-      u(i,j) = exp(xc(i,j)+yc(i,j))
+      !u(i,j) = exp(xc(i,j)+yc(i,j))
+      u(i,j) = 1.d0
      end do
   end do
 
