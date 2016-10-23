@@ -31,14 +31,16 @@ program hwk4
 
   hr = 2.d0/dble(nr)
   hs = 2.d0/dble(ns)
-  !
+  !$OMP PARALLEL DO PRIVATE(i)
   do i = 0,nr
      r(i) = -1.d0 + dble(i)*hr
   end do
-  !
+  !$OMP END PARALLEL DO
+  !$OMP PARALLEL DO PRIVATE(i)
   do i = 0,ns
      s(i) = -1.d0 + dble(i)*hs
   end do
+  !$OMP END PARALLEL DO
 
   do j = 0,ns
      do i = 0,nr
@@ -50,41 +52,47 @@ program hwk4
   call  printdble2d(yc,nr,ns,'y.txt')
 
   ! Differentiate x and y with respect to r
-  !
+  !$OMP PARALLEL DO PRIVATE(i)
   do i = 0,ns
     call differentiate(xc(0:nr,i),xr(0:nr,i),hr,nr)
     call differentiate(yc(0:nr,i),yr(0:nr,i),hr,nr)
   end do
+  !$OMP END PARALLEL DO
+
   ! Differentiate x and y with respect to s
-  !
+  !$OMP PARALLEL DO PRIVATE(i)
   do i = 0,nr
     call differentiate(xc(i,0:ns),xs(i,0:ns),hs,ns)
     call differentiate(yc(i,0:ns),ys(i,0:ns),hs,ns)
   end do
+  !$OMP END PARALLEL DO
 
-  !
+  !$OMP PARALLEL DO PRIVATE(j,i)
   do j = 0,ns
      do i = 0,nr
       !u(i,j) = exp(xc(i,j)+yc(i,j))
       u(i,j) = 1.d0
      end do
   end do
+  !$OMP END PARALLEL DO
 
   ! Calculate Jacobian (yay!)
-  !
+  !$OMP PARALLEL DO PRIVATE(j,i)
   do j = 0, ns
     do i = 0, nr
       jac(i,j) = xr(i,j)*ys(i,j) - xs(i,j)*yr(i,j)
     end do
   end do
+  !$OMP END PARALLEL DO
 
   ! Store the elements of the Jacobian multiplied by the elements of u.
-  !
+  !$OMP PARALLEL DO PRIVATE(j,i)
   do j = 0,ns
     do i = 0,nr
       jacproduct(i,j) = u(i,j)*jac(i,j)
     end do
   end do
+  !$OMP END PARALLEL DO
 
   ! Integrate (actually estimate using trapezoidal rule)!
   integral = 0.d0
@@ -94,6 +102,7 @@ program hwk4
     integral = integral + val
   end do
   integral = integral*hr
+  !$OMP END PARALLEL DO
 
   tend = omp_get_wtime()
   
