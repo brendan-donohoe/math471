@@ -101,8 +101,8 @@ program hwk4
     call trap(1.d0, -1.d0, jacproduct(i,0:ns), ns, val)
     integral = integral + val
   end do
-  integral = integral*hr
   !$OMP END PARALLEL DO
+  integral = integral*hr
 
   tend = omp_get_wtime()
   
