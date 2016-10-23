@@ -15,7 +15,7 @@ program hwk4
   real(kind = 8), dimension(:,:), allocatable :: yr,ys
   real(kind = 8), dimension(:,:), allocatable :: jac
 
-  !$ call OMP_set_num_threads(8)
+  !$ call OMP_set_num_threads(4)
 
   nr = 800
   ns = 800
