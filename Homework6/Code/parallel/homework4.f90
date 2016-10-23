@@ -31,11 +31,11 @@ program hwk4
 
   hr = 2.d0/dble(nr)
   hs = 2.d0/dble(ns)
-  !$OMP PARALLEL DO PRIVATE(i)
+  !
   do i = 0,nr
      r(i) = -1.d0 + dble(i)*hr
   end do
-  !$OMP PARALLEL DO PRIVATE(i)
+  !
   do i = 0,ns
      s(i) = -1.d0 + dble(i)*hs
   end do
@@ -62,7 +62,7 @@ program hwk4
     call differentiate(yc(i,0:ns),ys(i,0:ns),hs,ns)
   end do
 
-  !$OMP PARALLEL DO PRIVATE(j,i)
+  !
   do j = 0,ns
      do i = 0,nr
       !u(i,j) = exp(xc(i,j)+yc(i,j))
@@ -71,7 +71,7 @@ program hwk4
   end do
 
   ! Calculate Jacobian (yay!)
-  !$OMP PARALLEL DO PRIVATE(j,i)
+  !
   do j = 0, ns
     do i = 0, nr
       jac(i,j) = xr(i,j)*ys(i,j) - xs(i,j)*yr(i,j)
@@ -79,7 +79,7 @@ program hwk4
   end do
 
   ! Store the elements of the Jacobian multiplied by the elements of u.
-  !$OMP PARALLEL DO PRIVATE(j,i)
+  !
   do j = 0,ns
     do i = 0,nr
       jacproduct(i,j) = u(i,j)*jac(i,j)
