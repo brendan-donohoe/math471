@@ -15,7 +15,7 @@ program hwk4
   real(kind = 8), dimension(:,:), allocatable :: yr,ys
   real(kind = 8), dimension(:,:), allocatable :: jac
 
-  !$ call OMP_set_num_threads(16)
+  !$ call OMP_set_num_threads(8)
 
   nr = 800
   ns = 800
@@ -42,14 +42,16 @@ program hwk4
   end do
   !$OMP END PARALLEL DO
 
+  !$OMP PARALLEL DO PRIVATE(j,i)
   do j = 0,ns
      do i = 0,nr
         xc(i,j) = x_coord(r(i),s(j))
         yc(i,j) = y_coord(r(i),s(j))
      end do
   end do
-  call  printdble2d(xc,nr,ns,'x.txt')
-  call  printdble2d(yc,nr,ns,'y.txt')
+  !$OMP END PARALLEL DO
+  !call  printdble2d(xc,nr,ns,'x.txt')
+  !call  printdble2d(yc,nr,ns,'y.txt')
 
   ! Differentiate x and y with respect to r
   !$OMP PARALLEL DO PRIVATE(i)
