@@ -50,13 +50,13 @@ program hwk4
   call  printdble2d(yc,nr,ns,'y.txt')
 
   ! Differentiate x and y with respect to r
-  !$OMP PARALLEL DO PRIVATE(i)
+  !
   do i = 0,ns
     call differentiate(xc(0:nr,i),xr(0:nr,i),hr,nr)
     call differentiate(yc(0:nr,i),yr(0:nr,i),hr,nr)
   end do
   ! Differentiate x and y with respect to s
-  !$OMP PARALLEL DO PRIVATE(i)
+  !
   do i = 0,nr
     call differentiate(xc(i,0:ns),xs(i,0:ns),hs,ns)
     call differentiate(yc(i,0:ns),ys(i,0:ns),hs,ns)
