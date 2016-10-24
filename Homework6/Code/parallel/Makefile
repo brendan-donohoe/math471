@@ -32,6 +32,7 @@ run_it: $(EX)
 
 run_analysis: ./timeanalysis.x
 	./timeanalysis.x > timetable.txt
+	nohup matlab -nosplash -nodisplay < plotparallel.m > output.txt
 
 timeanalysis.o: xycoord.mod timeanalysis.f90
 	$(FC) $(F90FLAGS) -c timeanalysis.f90

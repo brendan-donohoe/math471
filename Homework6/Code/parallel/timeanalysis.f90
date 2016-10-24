@@ -2,7 +2,7 @@ program timeanalysis
   implicit none
   integer :: numthreads, gridsize
   
-  do numthreads = 1, 12
+  do numthreads = 1, 16
     do gridsize = 20, 800
       call printtime(numthreads, gridsize)
     end do
