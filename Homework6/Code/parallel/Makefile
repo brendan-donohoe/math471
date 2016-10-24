@@ -30,6 +30,15 @@ graph_it: $(EX)
 run_it: $(EX)
 	$(EX)
 
+run_analysis: ./timeanalysis.x
+	./timeanalysis.x > timetable.txt
+
+timeanalysis.o: xycoord.mod timeanalysis.f90
+	$(FC) $(F90FLAGS) -c timeanalysis.f90
+
+timeanalysis.x: xycoord.mod timeanalysis.o $(OBJECTS)
+	$(LD) $(LDFLAGS) timeanalysis.o differentiate.o printdble.o xycoord.o trap.o -o ./timeanalysis.x
+
 %.o : %.f90
 	$(FC) $(F90FLAGS) -c $<
 
@@ -40,4 +49,4 @@ run_it: $(EX)
 	$(FC) $(FFLAGS) -c $<
 
 clean:
-	rm -f $(OBJECTS) $(MODULES) $(EX) *~ erroranalysis.o erroranalysis.x nohup.out errorvals.txt errorgraph.png grid.eps output.txt out.txt x.txt y.txt
+	rm -f $(OBJECTS) $(MODULES) $(EX) *~ timeanalysis.o timeanalysis.x nohup.out errorvals.txt errorgraph.png grid.eps output.txt out.txt x.txt y.txt
