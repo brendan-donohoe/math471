@@ -39,5 +39,6 @@ subroutine differentiate(u,ux,h,n)
   do j = 1,3
      ux(n) = ux(n) + diff_weights(j,3)*u(n-(j-1))
   end do
-
+  ! 21 + 5(n-1) floating point operations
+  
 end subroutine differentiate
