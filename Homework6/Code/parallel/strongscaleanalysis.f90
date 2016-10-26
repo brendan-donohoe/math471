@@ -1,7 +1,18 @@
-program hwk4
+program strongscaleanalysis
+  implicit none
+  integer :: numthreads
+  
+  do numthreads = 1, 16
+    call printtime(numthreads, 50 * numthreads);
+  end do
+end program
+
+subroutine printtime(numthreads, gridsize)
   !$ use omp_lib
   use xycoord ! use the module xycoord to set the mapping
   implicit none
+
+  integer, intent(in) :: numthreads, gridsize
 
   integer :: nr,ns,i,j
 
@@ -15,10 +26,10 @@ program hwk4
   real(kind = 8), dimension(:,:), allocatable :: yr,ys
   real(kind = 8), dimension(:,:), allocatable :: jac
 
-  !$ call OMP_set_num_threads(1)
+  !$ call OMP_set_num_threads(numthreads)
 
-  nr = 800
-  ns = 800
+  nr = gridsize
+  ns = gridsize
   
   ! Allocate memory for the various arrays
   allocate(r(0:nr),s(0:ns),u(0:nr,0:ns))
@@ -50,8 +61,6 @@ program hwk4
      end do
   end do
   !$OMP END PARALLEL DO
-  !call  printdble2d(xc,nr,ns,'x.txt')
-  !call  printdble2d(yc,nr,ns,'y.txt')
 
   ! Differentiate x and y with respect to r
   !$OMP PARALLEL DO PRIVATE(i)
@@ -107,7 +116,6 @@ program hwk4
   integral = integral*hr
 
   tend = omp_get_wtime()
-  
-  write(*,*) "integral value=", integral
-  write(*,*) "time taken=", tend - tstart
-end program hwk4
+
+  write(*,*) numthreads, gridsize, (tend - tstart)
+end subroutine printtime

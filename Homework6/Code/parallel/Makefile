@@ -40,6 +40,24 @@ timeanalysis.o: xycoord.mod timeanalysis.f90
 timeanalysis.x: xycoord.mod timeanalysis.o $(OBJECTS)
 	$(LD) $(LDFLAGS) timeanalysis.o differentiate.o printdble.o xycoord.o trap.o -o ./timeanalysis.x
 
+run_weak: ./weakscaleanalysis.x
+	./weakscaleanalysis.x > weak.txt
+
+weakscaleanalysis.o: xycoord.mod weakscaleanalysis.f90
+	$(FC) $(F90FLAGS) -c weakscaleanalysis.f90
+
+weakscaleanalysis.x: xycoord.mod weakscaleanalysis.o $(OBJECTS)
+	$(LD) $(LDFLAGS) weakscaleanalysis.o differentiate.o printdble.o xycoord.o trap.o -o ./weakscaleanalysis.x
+
+run_strong: ./strongscaleanalysis.x
+	./strongscaleanalysis.x > strong.txt
+
+strongscaleanalysis.o: xycoord.mod strongscaleanalysis.f90
+	$(FC) $(F90FLAGS) -c strongscaleanalysis.f90
+
+strongscaleanalysis.x: xycoord.mod strongscaleanalysis.o $(OBJECTS)
+	$(LD) $(LDFLAGS) strongscaleanalysis.o differentiate.o printdble.o xycoord.o trap.o -o ./strongscaleanalysis.x
+
 %.o : %.f90
 	$(FC) $(F90FLAGS) -c $<
 
@@ -50,4 +68,4 @@ timeanalysis.x: xycoord.mod timeanalysis.o $(OBJECTS)
 	$(FC) $(FFLAGS) -c $<
 
 clean:
-	rm -f $(OBJECTS) $(MODULES) $(EX) *~ timeanalysis.o timeanalysis.x nohup.out errorvals.txt errorgraph.png grid.eps output.txt out.txt x.txt y.txt
+	rm -f $(OBJECTS) $(MODULES) $(EX) *~ *.o *.x nohup.out errorvals.txt errorgraph.png grid.eps output.txt out.txt x.txt y.txt

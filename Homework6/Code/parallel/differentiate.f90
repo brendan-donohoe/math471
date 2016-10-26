@@ -5,12 +5,17 @@
 ! n: (Input) Number of steps.
 
 subroutine differentiate(u,ux,h,n)
+  !$ use omp_lib
   implicit none
   integer, intent(in) :: n
   real(kind = 8), intent(in) :: u(0:n),h
   real(kind = 8), intent(out) :: ux(0:n)
+  real(kind = 8) :: tstart, tend
   integer :: i,j
   real(kind = 8) :: diff_weights(1:3,1:3)
+
+  !tstart = omp_get_wtime()
+
   ! Set up weights for a finite difference stencil
   ! using three gridpoints
   ! In the interior we use a centered stencil
@@ -40,5 +45,8 @@ subroutine differentiate(u,ux,h,n)
      ux(n) = ux(n) + diff_weights(j,3)*u(n-(j-1))
   end do
   ! 21 + 5(n-1) floating point operations
+
+  !tend = omp_get_wtime()
+  !write(*,*) "FLOPS = ", (21 + 5 * (n - 1)) / (tend - tstart)
   
 end subroutine differentiate
