@@ -1,0 +1,78 @@
+# Makefile
+# 
+# 
+# 
+# 
+# 
+
+FC = mpif90
+LD = mpif90
+LDFLAGS =
+FFLAGS = 
+F90FLAGS = -Wall -fbounds-check
+EX = ./homework7.x
+
+OBJECTS = xycoord.o homework7.o
+
+.PHONY: clean
+
+$(EX): $(OBJECTS) 
+	$(LD) $(OBJECTS) -o $(EX) $(LDFLAGS) 
+
+error_plot_t : errorvalst.txt
+	nohup matlab -nosplash -nodisplay < errorplot.m
+
+error_plot_s : errorvalss.txt
+	nohup matlab -nosplash -nodisplay < errorplot.m
+
+errorvalst.txt : ./errortime.x
+	./errortime.x > errorvalst.txt
+
+errorvalss.txt : ./errorspace.x
+	./errorspace.x > errorvalss.txt
+
+strongscaletimes.txt : ./stampedestrong.x
+	> strongscaletimes.txt
+	for n in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ; do \
+	  echo "Running with $$n processes:" ; \
+	  mpirun -np $$n stampedestrong.x >> strongscaletimes.txt ; \
+	done
+
+weakscaletimes.txt : ./stampedeweak.x
+	> weakscaletimes.txt
+	for n in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ; do \
+	  echo "Running with $$n processes:" ; \
+	  mpirun -np $$n stampedeweak.x >> weakscaletimes.txt ; \
+	done
+
+./stampedestrong.x : stampedestrong.o
+	$(LD) xycoord.o stampedestrong.o -o ./stampedestrong.x $(LDFLAGS)
+
+./stampedeweak.x : stampedeweak.o
+	$(LD) xycoord.o stampedeweak.o -o ./stampedeweak.x $(LDFLAGS)
+
+./errortime.x : errortime.o
+	$(LD) xycoord.o errortime.o -o ./errortime.x $(LDFLAGS)
+
+./errorspace.x : errorspace.o
+	$(LD) xycoord.o errorspace.o -o ./errorspace.x $(LDFLAGS)
+
+./helloworld.x : helloworld.o
+	$(LD) helloworld.o -o ./helloworld.x $(LDFLAGS)
+
+./helloworld2.x : helloworld2.o
+	$(LD) helloworld2.o -o ./helloworld2.x $(LDFLAGS)
+
+%.o : %.f90
+	$(FC) $(F90FLAGS) -c $<
+
+%.o : %.f
+	$(FC) $(FFLAGS) -c $<
+
+%.mod : %.f90
+	$(FC) $(FFLAGS) -c $<
+
+clean:
+	rm -f *.o
+	rm *.txt
+	rm *.jpg
